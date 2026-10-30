@@ -1,0 +1,80 @@
+/**
+ * Дизайн-токены (docs/SPEC.md §11.1).
+ *
+ * Палитра приложения + перекрытие переменных kinu (`--k-*`), чтобы кит
+ * унаследовал тёмную тему и золотой акцент вместо дефолтной синей.
+ */
+
+:root {
+  /* Палитра Poker Night */
+  --bg: #0d1512;
+  --bg-elevated: #16211d;
+  --bg-glass: rgba(22, 33, 29, 0.72);
+  --felt: radial-gradient(ellipse at 50% 0%, #17352a 0%, #0d1512 62%);
+  --gold: #d4af37;
+  --gold-soft: #e8c95a;
+  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f4e08a 50%, #b8932a 100%);
+  --green: #2f9e6a;
+  --red: #c8443b;
+  --text: #f2f0eb;
+  --text-dim: #9aa39e;
+  --border: rgba(212, 175, 55, 0.22);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+  /* Ритм и размеры */
+  --gap: 12px;
+  --pad: 16px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --tap: 44px;
+  --screen-max: 430px;
+
+  /* Перекрытие kinu: HSL-триплеты, а не готовые цвета */
+  --k-background: 158 24% 7%;
+  --k-foreground: 40 20% 94%;
+  --k-card: 158 18% 11%;
+  --k-card-foreground: 40 20% 94%;
+  --k-popover: 158 20% 10%;
+  --k-popover-foreground: 40 20% 94%;
+  --k-primary: 45 63% 52%;
+  --k-primary-foreground: 158 30% 8%;
+  --k-primary-hover: 45 66% 44%;
+  --k-primary-soft: 45 63% 52%;
+  --k-secondary: 158 14% 16%;
+  --k-secondary-foreground: 40 20% 94%;
+  --k-muted: 158 14% 15%;
+  --k-muted-foreground: 150 6% 62%;
+  --k-accent: 158 16% 20%;
+  --k-accent-foreground: 40 20% 94%;
+  --k-destructive: 4 55% 51%;
+  --k-destructive-foreground: 40 20% 96%;
+  --k-destructive-hover: 4 58% 45%;
+  --k-success: 150 54% 40%;
+  --k-warning: 42 74% 52%;
+  --k-info: 205 60% 50%;
+  --k-border: 45 30% 30%;
+  --k-input: 158 12% 24%;
+  --k-ring: 45 63% 52%;
+  --k-radius: 14px;
+  --k-radius-1: 10px;
+  --k-radius-2: 12px;
+  --k-radius-3: 14px;
+  --k-radius-4: 18px;
+  --k-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --k-shadow-2: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --k-shadow-3: 0 18px 48px rgba(0, 0, 0, 0.6);
+  --k-control-h: 44px;
+  --k-control-h-sm: 36px;
+  --k-control-h-lg: 52px;
+  --k-control-h-icon: 44px;
+  --k-control-font: 16px;
+  --k-row-h: 44px;
+  --k-row-font: 15px;
+  --k-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Поля номиналов и количества (§5.9): не уже четырёх монозначных разрядов,
+     плюс отступы и спиннеры `type=number`. */
+  --num-field-min: 8.6ch;
+
+  color-scheme: dark;
+}
