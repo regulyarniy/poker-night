@@ -175,7 +175,26 @@ describe('устойчивость декодера', () => {
 });
 
 describe('brotli-совместимость (§12.18)', () => {
-  it('декодирует ссылку с тегом 0x02, если браузер умеет brotli', async () => {
+  /** Есть ли в рантайме brotli — в Node 22 он появился позже, в 24 точно есть. */
+  const hasBrotli = (): boolean => {
+    const Ctor = (globalThis as { CompressionStream?: unknown }).CompressionStream;
+    if (typeof Ctor !== 'function') return false;
+    try {
+      new (Ctor as new (f: string) => unknown)('brotli');
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  it('декодирует ссылку с тегом 0x02, если рантайм умеет brotli', async () => {
+    if (!hasBrotli()) {
+      // Рантайм без brotli: декодер обязан ответить «unsupported», а не упасть.
+      const decoded = await decodePayload(toBase64Url(new Uint8Array([CODEC_BROTLI, 1, 2, 3])));
+      expect(decoded).toEqual({ ok: false, reason: 'unsupported' });
+      return;
+    }
+
     // Собираем brotli-payload вручную.
     const json = new TextEncoder().encode(JSON.stringify(makePayload(2)));
     const Ctor = (

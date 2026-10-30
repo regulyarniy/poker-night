@@ -33,7 +33,16 @@ describe('toIsoLocal', () => {
 
 describe('formatShortDateTime', () => {
   it('форматирует по-русски', () => {
-    expect(formatShortDateTime('2026-10-29T20:45:00+10:00')).toBe('29 окт 20:45');
+    // Без offset: `new Date()` считает такую строку локальной,
+    // поэтому тест не зависит от часового пояса раннера.
+    expect(formatShortDateTime('2026-10-29T20:45:00')).toBe('29 окт 20:45');
+  });
+
+  it('переводит z-время в часовой пояс читателя', () => {
+    // 10:45 UTC — в UTC-поясе это 10:45, в любом поясе с +N это 10:45+N.
+    const utcHours = new Date('2026-10-29T10:45:00Z').getHours();
+    const expected = `29 окт ${String(utcHours).padStart(2, '0')}:45`;
+    expect(formatShortDateTime('2026-10-29T10:45:00Z')).toBe(expected);
   });
 
   it('возвращает прочерк на мусоре', () => {
@@ -45,9 +54,9 @@ describe('formatShortDateTime', () => {
 
 describe('formatMonth / monthKey', () => {
   it('группирует по месяцам', () => {
-    expect(formatMonth('2026-10-29T20:45:00+10:00')).toBe('Октябрь 2026');
-    expect(monthKey('2026-10-29T20:45:00+10:00')).toBe('2026-10');
-    expect(monthKey('2026-01-02T00:00:00+10:00')).toBe('2026-01');
+    expect(formatMonth('2026-10-29T20:45:00')).toBe('Октябрь 2026');
+    expect(monthKey('2026-10-29T20:45:00')).toBe('2026-10');
+    expect(monthKey('2026-01-02T00:00:00')).toBe('2026-01');
   });
 });
 
